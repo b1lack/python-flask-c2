@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>命令执行</title>
+</head>
+<body>
+<h2 >当前机器：<span id="hostname">{{ data }}</span></h2>
+<h3>请输入需要执行的命令：</h3>
+<form>
+  <input type="text" name="command" id="command">
+  <input type="submit" id="sub">
+</form>
+<br>
+<form action="http://127.0.0.1:8090/" method="GET">
+    <input type="submit" value="返回首页">
+</form>
+
+<h2>命令执行结果：</h2>
+   <span id=result></span>
+
+</body>
+<script type=text/javascript src="{{
+  url_for('static', filename='jquery.js') }}">
+</script>
+
+<script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $(function() {
+        $('#sub').bind('click', function() {
+            $.getJSON($SCRIPT_ROOT + '/cmd_result', {
+                command: $('input[name="command"]').val(),
+                hostname: $("#hostname").text(),
+            }, function(data) {
+                $("#result").text(data.result);
+                $.document.getElementById('command').var='';
+            });
+            return false;
+        });
+    });
+</script>
+</html>

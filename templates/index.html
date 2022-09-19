@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP远程Server端</title>
+</head>
+
+<body>
+  <h1>HTTP Server</h1>
+  <h2>客户端列表</h2>
+
+{% for uid in uids  %}
+<h3><a href = "http://127.0.0.1:8090/activate/{{ uid }}"> {{ uid }}</a></h3>
+{% endfor %}
+</body>
+
+</html>
